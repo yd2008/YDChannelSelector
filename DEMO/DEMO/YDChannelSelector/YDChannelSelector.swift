@@ -33,7 +33,7 @@ fileprivate let originDS = "originDS"
 /// 用户操纵后数据源
 fileprivate let operatedDS = "operatedDS"
 
-public class YDChannelSelector: UIView {
+public class YDChannelSelector: UIViewController {
     
     // MARK: - 对外属性方法 -
     
@@ -50,7 +50,7 @@ public class YDChannelSelector: UIView {
     public var dataSource: [[SelectorItem]]? {
         didSet{
             guard dataSource != nil && !(dataSource?.isEmpty)! else {
-                assert(false, "数据源不能设置为空!")
+                assert(false, "DataSources can not be empty!")
                 return
             }
             
@@ -60,19 +60,15 @@ public class YDChannelSelector: UIView {
             if isCacheLastest &&  UserDefaults.standard.value(forKey: operatedDS) != nil { // 需要缓存之前数据 且用户操作有存储
                 /// 缓存原始数据源
                 if isCacheLastest { cacheDataSource(dataSource: dataSource!, isOrigin: true) }
-                
                 var bool = false
                 let newTitlesArrs = dataSource!.map { $0.map { $0.channelTitle! } }
                 let orginTitlesArrs = UserDefaults.standard.value(forKey: originDS) as? [[String]]
                 // 之前有存过原始数据源
                 if orginTitlesArrs != nil { bool = newTitlesArrs == orginTitlesArrs! }
-                
                 if bool { // 和之前数据相等 -> 返回缓存数据源
-                    
                     let cacheTitleArrs = UserDefaults.standard.value(forKey: operatedDS) as? [[String]]
                     let flatArr = dataSource!.flatMap { $0 }
                     var cachedDataSource = cacheTitleArrs!.map { $0.map { SelectorItem(channelTitle: $0, rawData: nil) }}
-                    
                     for (i,items) in cachedDataSource.enumerated() {
                         for (j,item) in items.enumerated() {
                             for originItem in flatArr {
@@ -121,13 +117,13 @@ public class YDChannelSelector: UIView {
         return tl
     }()
     
-    private lazy var backBtn: UIButton = {
-        let bb = UIButton()
-        bb.setImage(UIImage(named: "selector_dismiss"), for: .normal)
-        bb.setTitleColor(UIColor.black, for: .normal)
-        bb.addTarget(self, action: #selector(back), for: .touchUpInside)
-        bb.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        return bb
+    private lazy var dismissBtn: UIButton = {
+        let db = UIButton()
+        db.setImage(UIImage(named: "selector_dismiss"), for: .normal)
+        db.setTitleColor(UIColor.black, for: .normal)
+        db.addTarget(self, action: #selector(remove), for: .touchUpInside)
+        db.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        return db
     }()
     
     private lazy var longPressGes: UILongPressGestureRecognizer = {
@@ -152,47 +148,40 @@ public class YDChannelSelector: UIView {
         return cv
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: life cycle
+    public override func viewDidLoad() {
+        super.viewDidLoad()
         initUI()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-        
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         titleLabel.frame = CGRect(x: (UIScreen.main.bounds.width-72)/2, y: yd_Inch58() ? 40:20, width: 72, height: 44)
-        backBtn.frame = CGRect(x: UIScreen.main.bounds.width-25-20, y: 0, width: 25, height: 25)
-        backBtn.center.y = titleLabel.center.y
-        collectionView.frame = CGRect(x: 0, y: titleLabel.frame.maxY, width: bounds.width, height: bounds.height - titleLabel.frame.maxY)
+        dismissBtn.frame = CGRect(x: UIScreen.main.bounds.width-25-20, y: 0, width: 25, height: 25)
+        dismissBtn.center.y = titleLabel.center.y
+        collectionView.frame = CGRect(x: 0, y: titleLabel.frame.maxY, width: view.bounds.width, height: view.bounds.height - titleLabel.frame.maxY)
     }
     
-    /// 拦截系统触碰事件
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if let indexPath = collectionView.indexPathForItem(at: convert(point, to: collectionView)) { // 在某个cell上
-            let cell = collectionView.cellForItem(at: indexPath) as! YDChannelSelectorCell
-            cell.touchAnimate()
-        }
-        return super.hitTest(point, with: event)
-    }
 }
 
 // MARK: 初始化和处理
 extension YDChannelSelector {
     private func initUI() {
-        backgroundColor = UIColor.white
+        view = HitTestView()
+        view.backgroundColor = UIColor.white
         
-        addSubview(titleLabel)
-        addSubview(collectionView)
-        addSubview(backBtn)
+        view.addSubview(titleLabel)
+        view.addSubview(collectionView)
+        view.addSubview(dismissBtn)
+        
+        (view as! HitTestView).collectionView = collectionView
     }
     
-    @objc private func back() {
+    @objc private func remove() {
         // 通知代理
         delegate?.selector(self, dismiss: dataSource!)
+        // 移除控制器
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func handleLongGesture(ges: UILongPressGestureRecognizer) {
@@ -268,15 +257,15 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
         // 设置是否是固定栏目
         cell.isFix = item.isSubscribe
         
-        if indexPath.section == 0 { // 是否是我的栏目
+        if indexPath.section == 0 { // 是我的栏目
             cell.cellType = .delete
             cell.isEdit = isEdit
-        } else {
+        } else {                    // 不是我的栏目
             cell.cellType = .add
             cell.isEdit = true
         }
         
-        cell.longPressActionBlock = { [weak self] (_) in
+        cell.longPressAction = { [weak self] (_) in
             // 激活编辑状态
             self?.isEdit = true
         }
@@ -314,7 +303,6 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-
         if section == 0 {                                          // 我的栏目
             return CGSize(width: 0, height: 50)
         } else if section == 1 && latelyDeleteChannels.isEmpty {   // 没有最近删除
@@ -338,9 +326,8 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let cell = collectionView.cellForItem(at: indexPath) as! YDChannelSelectorCell
-        if indexPath.section == 0 && isEdit && !cell.isFix { // 我的栏目 非固定栏目 编辑状态下 -> 移到最近删除
+        if indexPath.section == 0 && isEdit && !cell.isFix { // 我的栏目 非固定栏目 编辑状态下 -> 最近删除
             let destinationIndexPath = IndexPath(item: 0, section: 1)
             handleDataSource(sourceIndexPath: indexPath, destinationIndexPath: destinationIndexPath)
             collectionView.moveItem(at: indexPath, to: destinationIndexPath)
@@ -350,7 +337,9 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
             let channelItem = dataSource![indexPath.section][indexPath.row]
             // 通知代理
             delegate?.selector(self, didSelectChannel: channelItem)
-        } else if indexPath.section != 0 {                   // 非我的栏目 -> 移到我的栏目
+            // dismiss
+            dismiss(animated: true, completion: nil)
+        } else if indexPath.section != 0 {                   // 更多栏目 -> 我的栏目
             let destinationIndexPath = IndexPath(item: dataSource![0].count, section: 0)
             handleDataSource(sourceIndexPath: indexPath, destinationIndexPath: destinationIndexPath)
             collectionView.moveItem(at: indexPath, to: destinationIndexPath)
@@ -405,3 +394,23 @@ public struct SelectorItem {
         self.rawData = rawData
     }
 }
+
+fileprivate class HitTestView: UIView {
+    
+    open var collectionView: UICollectionView!
+    
+    /// 拦截系统触碰事件
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let indexPath = collectionView.indexPathForItem(at: convert(point, to: collectionView)) { // 在某个cell上
+            let cell = collectionView.cellForItem(at: indexPath) as! YDChannelSelectorCell
+            cell.touchAnimate()
+        }
+        return super.hitTest(point, with: event)
+    }
+}
+
+
+
+
+
+

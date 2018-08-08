@@ -21,7 +21,7 @@ enum YDChannelSelectorCellType {
 class YDChannelSelectorCell: UICollectionViewCell {
     
     /// 长按点击事件
-    open var longPressActionBlock: ((_ lpg: UILongPressGestureRecognizer) -> Void)?
+    open var longPressAction: ((_ lpg: UILongPressGestureRecognizer) -> Void)?
     
     /// 数据源
     open var dataSource: String? {
@@ -60,7 +60,6 @@ class YDChannelSelectorCell: UICollectionViewCell {
     /// 是否进入编辑状态
     open var isEdit: Bool = false {
         didSet{
-            // 强制刷新
             setNeedsLayout()
             layoutIfNeeded()
         }
@@ -68,7 +67,7 @@ class YDChannelSelectorCell: UICollectionViewCell {
     
     /// 长按手势识别器
     open lazy var longPressGes: UILongPressGestureRecognizer = {
-        let lpg = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(lpg:)))
+        let lpg = UILongPressGestureRecognizer(target: self, action: #selector(longPress(lpg:)))
         lpg.delegate = self
         return lpg
     }()
@@ -152,15 +151,15 @@ extension YDChannelSelectorCell {
         contentView.addSubview(iconView)
     }
 
-    @objc private func longPressAction(lpg: UILongPressGestureRecognizer) {
+    @objc private func longPress(lpg: UILongPressGestureRecognizer) {
         guard lpg.state == .began else { return }
-        longPressActionBlock?(lpg)
+        longPressAction?(lpg)
     }
 }
 
 extension YDChannelSelectorCell: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return !isEdit
+        return !(isEdit && cellType != .add)
     }
 }
 

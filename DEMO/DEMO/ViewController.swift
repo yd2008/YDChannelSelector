@@ -13,12 +13,12 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     // 数据源
     var selectorDataSource: [[SelectorItem]]? {
         didSet {
-            selectorView.dataSource = selectorDataSource
+            channelSelector.dataSource = selectorDataSource
         }
     }
     
-    private lazy var selectorView: YDChannelSelector = {
-        let sv = YDChannelSelector(frame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    private lazy var channelSelector: YDChannelSelector = {
+        let sv = YDChannelSelector()
         sv.delegate = self
         return sv
     }()
@@ -36,10 +36,8 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(showBtn)
-        view.addSubview(selectorView)
         
         // 数据源赋值 通过网络或者本地获取
-        
         let mockData = [["头条","体育","数码","佛学","科技","娱乐","成都","二次元"],["独家","NBA","历史","军事","彩票","新闻学院","态度公开课","云课堂"]]
         
         var selectorDataSource_t = [[SelectorItem]]()
@@ -65,14 +63,11 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     }
     
     @objc private func presentSelector() {
-        guard selectorDataSource != nil else {
-            print("数据源不能为空！")
+        guard selectorDataSource != nil && selectorDataSource?.count != 0 else {
+            print("DataSources can not be empty!")
             return
         }
-        
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.selectorView.frame.origin.y = 0
-        }
+        present(channelSelector, animated: true, completion: nil)
     }
 }
 
@@ -84,9 +79,7 @@ extension ViewController {
     }
     
     func selector(_ selector: YDChannelSelector, dismiss newDataSource: [[SelectorItem]]) {
-        UIView.animate(withDuration: 0.3, animations: {
-            selector.frame.origin.y = UIScreen.main.bounds.height
-        })
+        print(newDataSource.map { $0.map { $0.channelTitle! } })
     }
     
     func selector(_ selector: YDChannelSelector, didSelectChannel channelItem: SelectorItem) {
