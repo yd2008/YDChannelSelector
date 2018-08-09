@@ -12,14 +12,14 @@
 // 遵守协议和数据源代理
 class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSelectorDelegate
 
-    // 设置数据源
+    // 遵守 YDChannelSelectorDataSource 协议 设置数据源
     var selectorDataSource: [[SelectorItem]]? {
         didSet {
             selectorView.dataSource = selectorDataSource
         }
     }
 
-    // bounds是屏幕大小即可
+    // 只需要设置代理
     private lazy var channelSelector: YDChannelSelector = {
         let cs = YDChannelSelector()
         cs.delegate = self
