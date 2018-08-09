@@ -20,11 +20,23 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     }
 
     // bounds是屏幕大小即可
-    private lazy var selectorView: YDChannelSelector = {
-        let sv = YDChannelSelector(frame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width,         height: UIScreen.main.bounds.height))
-        sv.delegate = self
-        return sv
+    private lazy var channelSelector: YDChannelSelector = {
+        let cs = YDChannelSelector()
+        cs.delegate = self
+        return cs
     }()
+```
+
+## 弹出(直接用系统方法present即可)
+```
+    @objc private func presentSelector() {
+        guard selectorDataSource != nil && selectorDataSource?.count != 0 else {
+            print("DataSources can not be empty!")
+            return
+        }
+        // 弹出频道选择器
+        present(channelSelector, animated: true, completion: nil)
+    }
 ```
 
 #### SelectorItem (三个属性)
@@ -73,9 +85,7 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     
     // 退下按钮点击时调用
     func selector(_ selector: YDChannelSelector, dismiss newDataSource: [[SelectorItem]]) {
-        UIView.animate(withDuration: 0.3, animations: {
-            selector.frame.origin.y = UIScreen.main.bounds.height
-        })
+       print(newDataSource.map { $0.map { $0.channelTitle! } })
     }
     
     // 选择了我的栏目中频道时调用 (点最近删除或更多栏目不会调)
