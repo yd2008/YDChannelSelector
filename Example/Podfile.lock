@@ -1,0 +1,16 @@
+PODS:
+  - YDChannelSelector (0.1.0)
+
+DEPENDENCIES:
+  - YDChannelSelector (from `../`)
+
+EXTERNAL SOURCES:
+  YDChannelSelector:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YDChannelSelector: 9b0629b518985153426de024247b027f02d6e97e
+
+PODFILE CHECKSUM: 2a4592c10887ea3211a447519ffbe054bcf34ea8
+
+COCOAPODS: 1.6.0.beta.2
