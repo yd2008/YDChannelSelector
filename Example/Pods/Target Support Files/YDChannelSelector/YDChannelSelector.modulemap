@@ -1,6 +1,0 @@
-framework module YDChannelSelector {
-  umbrella header "YDChannelSelector-umbrella.h"
-
-  export *
-  module * { export * }
-}
