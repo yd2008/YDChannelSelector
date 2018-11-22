@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		784640D521A6A556008EDE5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784640D421A6A556008EDE5D /* AppDelegate.swift */; };
+		784640D721A6A556008EDE5D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784640D621A6A556008EDE5D /* ViewController.swift */; };
+		784640DA21A6A556008EDE5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 784640D821A6A556008EDE5D /* Main.storyboard */; };
+		784640DC21A6A558008EDE5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 784640DB21A6A558008EDE5D /* Assets.xcassets */; };
+		784640EA21A6A558008EDE5D /* YDChannelSelectorDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784640E921A6A558008EDE5D /* YDChannelSelectorDemoTests.swift */; };
+		784640F521A6A558008EDE5D /* YDChannelSelectorDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784640F421A6A558008EDE5D /* YDChannelSelectorDemoUITests.swift */; };
+		7846410621A6A6D6008EDE5D /* YDChannelSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7846410321A6A6D6008EDE5D /* YDChannelSelectorCell.swift */; };
+		7846410721A6A6D6008EDE5D /* YDChannelSelectorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7846410421A6A6D6008EDE5D /* YDChannelSelectorHeader.swift */; };
+		7846410821A6A6D6008EDE5D /* YDChannelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7846410521A6A6D6008EDE5D /* YDChannelSelector.swift */; };
+		7846410D21A6A784008EDE5D /* selector_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7846410A21A6A784008EDE5D /* selector_add.png */; };
+		7846410E21A6A784008EDE5D /* selector_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 7846410B21A6A784008EDE5D /* selector_delete.png */; };
+		7846410F21A6A784008EDE5D /* selector_dismiss.png in Resources */ = {isa = PBXBuildFile; fileRef = 7846410C21A6A784008EDE5D /* selector_dismiss.png */; };
+		7846413521A6A91C008EDE5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7846413421A6A91C008EDE5D /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		784640E621A6A558008EDE5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 784640C921A6A556008EDE5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 784640D021A6A556008EDE5D;
+			remoteInfo = YDChannelSelectorDemo;
+		};
+		784640F121A6A558008EDE5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 784640C921A6A556008EDE5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 784640D021A6A556008EDE5D;
+			remoteInfo = YDChannelSelectorDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		784640D121A6A556008EDE5D /* YDChannelSelectorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YDChannelSelectorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		784640D421A6A556008EDE5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		784640D621A6A556008EDE5D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		784640D921A6A556008EDE5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		784640DB21A6A558008EDE5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		784640E021A6A558008EDE5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		784640E521A6A558008EDE5D /* YDChannelSelectorDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YDChannelSelectorDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		784640E921A6A558008EDE5D /* YDChannelSelectorDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YDChannelSelectorDemoTests.swift; sourceTree = "<group>"; };
+		784640EB21A6A558008EDE5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		784640F021A6A558008EDE5D /* YDChannelSelectorDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YDChannelSelectorDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		784640F421A6A558008EDE5D /* YDChannelSelectorDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YDChannelSelectorDemoUITests.swift; sourceTree = "<group>"; };
+		784640F621A6A558008EDE5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7846410321A6A6D6008EDE5D /* YDChannelSelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YDChannelSelectorCell.swift; sourceTree = "<group>"; };
+		7846410421A6A6D6008EDE5D /* YDChannelSelectorHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YDChannelSelectorHeader.swift; sourceTree = "<group>"; };
+		7846410521A6A6D6008EDE5D /* YDChannelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YDChannelSelector.swift; sourceTree = "<group>"; };
+		7846410A21A6A784008EDE5D /* selector_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selector_add.png; path = ../../../../YDChannelSelector/Assets/selector_add.png; sourceTree = "<group>"; };
+		7846410B21A6A784008EDE5D /* selector_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selector_delete.png; path = ../../../../YDChannelSelector/Assets/selector_delete.png; sourceTree = "<group>"; };
+		7846410C21A6A784008EDE5D /* selector_dismiss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = selector_dismiss.png; path = ../../../../YDChannelSelector/Assets/selector_dismiss.png; sourceTree = "<group>"; };
+		7846413421A6A91C008EDE5D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		784640CE21A6A556008EDE5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640E221A6A558008EDE5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640ED21A6A558008EDE5D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		784640C821A6A556008EDE5D = {
+			isa = PBXGroup;
+			children = (
+				784640D321A6A556008EDE5D /* YDChannelSelectorDemo */,
+				784640E821A6A558008EDE5D /* YDChannelSelectorDemoTests */,
+				784640F321A6A558008EDE5D /* YDChannelSelectorDemoUITests */,
+				784640D221A6A556008EDE5D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		784640D221A6A556008EDE5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				784640D121A6A556008EDE5D /* YDChannelSelectorDemo.app */,
+				784640E521A6A558008EDE5D /* YDChannelSelectorDemoTests.xctest */,
+				784640F021A6A558008EDE5D /* YDChannelSelectorDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		784640D321A6A556008EDE5D /* YDChannelSelectorDemo */ = {
+			isa = PBXGroup;
+			children = (
+				7846410221A6A67D008EDE5D /* YDChannelSelector */,
+				784640D421A6A556008EDE5D /* AppDelegate.swift */,
+				784640D621A6A556008EDE5D /* ViewController.swift */,
+				784640D821A6A556008EDE5D /* Main.storyboard */,
+				784640DB21A6A558008EDE5D /* Assets.xcassets */,
+				7846413421A6A91C008EDE5D /* LaunchScreen.storyboard */,
+				784640E021A6A558008EDE5D /* Info.plist */,
+			);
+			path = YDChannelSelectorDemo;
+			sourceTree = "<group>";
+		};
+		784640E821A6A558008EDE5D /* YDChannelSelectorDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				784640E921A6A558008EDE5D /* YDChannelSelectorDemoTests.swift */,
+				784640EB21A6A558008EDE5D /* Info.plist */,
+			);
+			path = YDChannelSelectorDemoTests;
+			sourceTree = "<group>";
+		};
+		784640F321A6A558008EDE5D /* YDChannelSelectorDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				784640F421A6A558008EDE5D /* YDChannelSelectorDemoUITests.swift */,
+				784640F621A6A558008EDE5D /* Info.plist */,
+			);
+			path = YDChannelSelectorDemoUITests;
+			sourceTree = "<group>";
+		};
+		7846410221A6A67D008EDE5D /* YDChannelSelector */ = {
+			isa = PBXGroup;
+			children = (
+				7846410921A6A767008EDE5D /* Resource */,
+				7846410521A6A6D6008EDE5D /* YDChannelSelector.swift */,
+				7846410321A6A6D6008EDE5D /* YDChannelSelectorCell.swift */,
+				7846410421A6A6D6008EDE5D /* YDChannelSelectorHeader.swift */,
+			);
+			path = YDChannelSelector;
+			sourceTree = "<group>";
+		};
+		7846410921A6A767008EDE5D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7846410A21A6A784008EDE5D /* selector_add.png */,
+				7846410B21A6A784008EDE5D /* selector_delete.png */,
+				7846410C21A6A784008EDE5D /* selector_dismiss.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		784640D021A6A556008EDE5D /* YDChannelSelectorDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 784640F921A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemo" */;
+			buildPhases = (
+				784640CD21A6A556008EDE5D /* Sources */,
+				784640CE21A6A556008EDE5D /* Frameworks */,
+				784640CF21A6A556008EDE5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YDChannelSelectorDemo;
+			productName = YDChannelSelectorDemo;
+			productReference = 784640D121A6A556008EDE5D /* YDChannelSelectorDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		784640E421A6A558008EDE5D /* YDChannelSelectorDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 784640FC21A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemoTests" */;
+			buildPhases = (
+				784640E121A6A558008EDE5D /* Sources */,
+				784640E221A6A558008EDE5D /* Frameworks */,
+				784640E321A6A558008EDE5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				784640E721A6A558008EDE5D /* PBXTargetDependency */,
+			);
+			name = YDChannelSelectorDemoTests;
+			productName = YDChannelSelectorDemoTests;
+			productReference = 784640E521A6A558008EDE5D /* YDChannelSelectorDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		784640EF21A6A558008EDE5D /* YDChannelSelectorDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 784640FF21A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemoUITests" */;
+			buildPhases = (
+				784640EC21A6A558008EDE5D /* Sources */,
+				784640ED21A6A558008EDE5D /* Frameworks */,
+				784640EE21A6A558008EDE5D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				784640F221A6A558008EDE5D /* PBXTargetDependency */,
+			);
+			name = YDChannelSelectorDemoUITests;
+			productName = YDChannelSelectorDemoUITests;
+			productReference = 784640F021A6A558008EDE5D /* YDChannelSelectorDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		784640C921A6A556008EDE5D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = yudai;
+				TargetAttributes = {
+					784640D021A6A556008EDE5D = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					784640E421A6A558008EDE5D = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 784640D021A6A556008EDE5D;
+					};
+					784640EF21A6A558008EDE5D = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 784640D021A6A556008EDE5D;
+					};
+				};
+			};
+			buildConfigurationList = 784640CC21A6A556008EDE5D /* Build configuration list for PBXProject "YDChannelSelectorDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 784640C821A6A556008EDE5D;
+			productRefGroup = 784640D221A6A556008EDE5D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				784640D021A6A556008EDE5D /* YDChannelSelectorDemo */,
+				784640E421A6A558008EDE5D /* YDChannelSelectorDemoTests */,
+				784640EF21A6A558008EDE5D /* YDChannelSelectorDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		784640CF21A6A556008EDE5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7846410D21A6A784008EDE5D /* selector_add.png in Resources */,
+				7846410E21A6A784008EDE5D /* selector_delete.png in Resources */,
+				784640DC21A6A558008EDE5D /* Assets.xcassets in Resources */,
+				7846413521A6A91C008EDE5D /* LaunchScreen.storyboard in Resources */,
+				784640DA21A6A556008EDE5D /* Main.storyboard in Resources */,
+				7846410F21A6A784008EDE5D /* selector_dismiss.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640E321A6A558008EDE5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640EE21A6A558008EDE5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		784640CD21A6A556008EDE5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7846410721A6A6D6008EDE5D /* YDChannelSelectorHeader.swift in Sources */,
+				7846410821A6A6D6008EDE5D /* YDChannelSelector.swift in Sources */,
+				784640D721A6A556008EDE5D /* ViewController.swift in Sources */,
+				784640D521A6A556008EDE5D /* AppDelegate.swift in Sources */,
+				7846410621A6A6D6008EDE5D /* YDChannelSelectorCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640E121A6A558008EDE5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				784640EA21A6A558008EDE5D /* YDChannelSelectorDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		784640EC21A6A558008EDE5D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				784640F521A6A558008EDE5D /* YDChannelSelectorDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		784640E721A6A558008EDE5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 784640D021A6A556008EDE5D /* YDChannelSelectorDemo */;
+			targetProxy = 784640E621A6A558008EDE5D /* PBXContainerItemProxy */;
+		};
+		784640F221A6A558008EDE5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 784640D021A6A556008EDE5D /* YDChannelSelectorDemo */;
+			targetProxy = 784640F121A6A558008EDE5D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		784640D821A6A556008EDE5D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				784640D921A6A556008EDE5D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		784640F721A6A558008EDE5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		784640F821A6A558008EDE5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		784640FA21A6A558008EDE5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		784640FB21A6A558008EDE5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		784640FD21A6A558008EDE5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YDChannelSelectorDemo.app/YDChannelSelectorDemo";
+			};
+			name = Debug;
+		};
+		784640FE21A6A558008EDE5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YDChannelSelectorDemo.app/YDChannelSelectorDemo";
+			};
+			name = Release;
+		};
+		7846410021A6A558008EDE5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YDChannelSelectorDemo;
+			};
+			name = Debug;
+		};
+		7846410121A6A558008EDE5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = YDChannelSelectorDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yd.www.YDChannelSelectorDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = YDChannelSelectorDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		784640CC21A6A556008EDE5D /* Build configuration list for PBXProject "YDChannelSelectorDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				784640F721A6A558008EDE5D /* Debug */,
+				784640F821A6A558008EDE5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		784640F921A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				784640FA21A6A558008EDE5D /* Debug */,
+				784640FB21A6A558008EDE5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		784640FC21A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				784640FD21A6A558008EDE5D /* Debug */,
+				784640FE21A6A558008EDE5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		784640FF21A6A558008EDE5D /* Build configuration list for PBXNativeTarget "YDChannelSelectorDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7846410021A6A558008EDE5D /* Debug */,
+				7846410121A6A558008EDE5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 784640C921A6A556008EDE5D /* Project object */;
+}
