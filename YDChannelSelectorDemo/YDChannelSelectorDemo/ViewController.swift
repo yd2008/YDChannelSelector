@@ -21,7 +21,7 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
         let sv = YDChannelSelector()
         sv.delegate = self
         // 是否支持本地缓存用户功能
-        //        sv.isCacheLastest = false
+        // sv.isCacheLastest = false
         return sv
     }()
     

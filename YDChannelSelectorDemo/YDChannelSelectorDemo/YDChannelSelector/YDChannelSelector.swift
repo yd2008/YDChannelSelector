@@ -382,9 +382,9 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
     public func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
         let item = dataSource![proposedIndexPath.section][proposedIndexPath.row]
         if proposedIndexPath.section > 0 || item.isFixation { // 不是我的栏目 或者是固定栏目
-            return originalIndexPath
+            return originalIndexPath // 操作还原
         } else {
-            return proposedIndexPath
+            return proposedIndexPath // 操作完成
         }
     }
     
