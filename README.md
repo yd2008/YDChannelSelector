@@ -34,6 +34,11 @@ pod 'YDChannelSelector'
 - [x] 网易后续界面逻辑同步更新
 - [x] 支持本地缓存用户操作
 
+    <div>
+        <img src="https://github.com/yd2008/YDChannelSelector/blob/master/Assets/Screen%20Shot1%20.png" width = "30%" div/>
+        <img src="https://github.com/yd2008/YDChannelSelector/blob/master/Assets/Screen%20Shot2%20.png" width = "30%" div/>
+    </div>
+
 # Usage
 
 ## 初始化 
