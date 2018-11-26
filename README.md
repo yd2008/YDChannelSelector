@@ -14,6 +14,7 @@ xcode 10 && swift 4.0
 
 ## Installation
 
+###### cocoapods
 YDChannelSelector is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
@@ -21,17 +22,83 @@ it, simply add the following line to your Podfile:
 pod 'YDChannelSelector'
 ```
 
-### 非cocoapods
-也可以直接拖YDChannelSelector进入项目
+###### 非cocoapods
+直接拖YDChannelSelector进入项目
 
 ## Features
-- 界面逻辑基本1:1 还原网易新闻 扩展性强 自定义性强
-- 支持cocoapods或者直接拖入项目使用
-- Size / **Device agnostic**.
-- 纯净无任何依赖耦合 接口简单易用
-- Comes with several *free* resources - Checkmark, Cross, Progress Indicator,…
-- …as well as **animated** ones.
-- Builds as an **iOS 8 framework**.
+- [x] 界面逻辑基本1:1 还原网易新闻 扩展性强 自定义性强
+- [x] 支持cocoapods或者直接拖入项目使用
+- [x] 纯净无任何依赖耦合 接口简单易用
+- [x] 网易后续界面逻辑同步更新
+- [x] 支持本地缓存用户操作
+
+# Usage
+
+## 初始化 
+创建频道选择器只需要三个参数： 代理，是否缓存用户操作（默认缓存），数据源（网络获取到后再赋值即可）
+```swift
+    class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSelectorDelegate {
+
+    // 数据源
+    var selectorDataSource: [[SelectorItem]]? {
+        didSet {
+            channelSelector.dataSource = selectorDataSource
+        }
+    }
+
+    // 频道选择器
+    private lazy var channelSelector: YDChannelSelector = {
+            let sv = YDChannelSelector()
+            sv.delegate = self
+            // 是否支持本地缓存用户功能
+            //        sv.isCacheLastest = false
+            return sv
+    }()
+    
+    .........
+```
+
+## 数据源创建
+SelectorItem中有三个属性 channelTitle即为频道标题 isFixation 是否是固定栏目 rawData ** 原始数据 模型或者字典皆可 **
+```swift
+    // 数据源赋值 通过网络或者本地获取
+    let mockData = [["头条","体育","数码","佛学","科技","娱乐","成都","二次元"],["独家","NBA","历史","军事","彩票","新闻学院","态度公开课","云课堂"]]
+
+    var selectorDataSource_t = [[SelectorItem]]()
+
+    for (i,channelArr) in mockData.enumerated() {
+        selectorDataSource_t.append([SelectorItem]())
+        for channelTitle in channelArr {
+            // 头条为固定栏目
+            let model = SelectorItem(channelTitle: channelTitle, isFixation: channelTitle == "头条", rawData: nil)
+            // 添加进对应组
+            selectorDataSource_t[i].append(model)
+        }
+    }
+
+    selectorDataSource = selectorDataSource_t
+```
+
+## 代理
+```swift
+
+    // 数据源发生变化
+    func selector(_ selector: YDChannelSelector, didChangeDS newDataSource: [[SelectorItem]]) {
+        print(newDataSource.map { $0.map { $0.channelTitle! } })
+    }
+
+    // 用户退出操作时
+    func selector(_ selector: YDChannelSelector, dismiss newDataSource: [[SelectorItem]]) {
+        print(newDataSource.map { $0.map { $0.channelTitle! } })
+    }
+
+    // 用户选中新频道时
+    func selector(_ selector: YDChannelSelector, didSelectChannel channelItem: SelectorItem) {
+        print(channelItem.channelTitle!)
+    }
+
+```
+
 
 ## Author
 
