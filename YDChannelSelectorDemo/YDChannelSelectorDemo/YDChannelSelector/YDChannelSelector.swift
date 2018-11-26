@@ -373,7 +373,7 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     public func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // 操纵数据源保证DataSource不会出错
+        
         handleDataSource(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
     }
     

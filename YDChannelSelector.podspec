@@ -18,7 +18,7 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "https://github.com/yd2008/YDChannelSelector.git", :tag => "#{spec.version}" }
 
-  spec.source_files  = "YDChannelSelector", "YDChannelSelector/*.swift"
+  spec.source_files  = "YDChannelSelector", "YDChannelSelector/Classes/*.swift"
 
   spec.resource_bundles = {
     'YDChannelSelector' => ['YDChannelSelector/Assets/*.png']
