@@ -9,8 +9,9 @@
 import UIKit
 
 public protocol YDChannelSelectorDataSource: class {
-    /// selector 数据源
-    var selectorDataSource: [[SelectorItem]]? { get }
+    func numberOfSections(in selector: YDChannelSelector) -> Int
+    func selector(_ selector: YDChannelSelector, numberOfItemsInSection section: Int) -> Int
+    func selector(_ selector: YDChannelSelector, itemAt indexPath: IndexPath) -> SelectorItem
 }
 
 public protocol YDChannelSelectorDelegate: class {
@@ -43,17 +44,22 @@ public class YDChannelSelector: UIViewController {
      */
     public var isCacheLastest = true
     
-    /// 当前选中频道
-    public var currentSelected: SelectorItem!
+    /// 数据源
+    public weak var dataSource: YDChannelSelectorDataSource?
     
     /// 代理
     public weak var delegate: YDChannelSelectorDelegate?
     
-    /// 数据源
-    public var dataSource: [[SelectorItem]]? {
+    /// 当前选中频道
+    public var currentSelected: SelectorItem!
+    
+    // MARK: - 私有属性方法 -
+    
+    /// 私有数据源
+    private var _dataSource: [[SelectorItem]]? {
         didSet{
             // 错误过滤
-            guard dataSource != nil && !(dataSource?.isEmpty)! else {
+            guard _dataSource != nil && !(_dataSource?.isEmpty)! else {
                 assert(false, "DataSources can not be empty!")
                 return
             }
@@ -62,17 +68,15 @@ public class YDChannelSelector: UIViewController {
             guard isFixFlag == false else { return }
             
             // 默认选中第一个
-            currentSelected = dataSource?.first?.first
+            currentSelected = _dataSource?.first?.first
             
             isFixFlag = true
         }
     }
-
-    // MARK: - 私有属性方法 -
     
     /// 初始化处理标识
     private var isFixFlag = false
-
+    
     /// 是否进入编辑状态
     private var isEdit: Bool = false {
         didSet{
@@ -88,16 +92,13 @@ public class YDChannelSelector: UIViewController {
         tl.textAlignment = .center
         tl.font = UIFont(name: "Helvetica-Bold", size: 18)
         tl.textColor = UIColor.black
-        tl.text = "所有栏目"        
+        tl.text = "所有栏目"
         return tl
     }()
     
     private lazy var dismissBtn: UIButton = {
         let db = UIButton()
-        let bundle = Bundle(for: YDChannelSelector.self)
-        let path = bundle.path(forResource: "selector_dismiss.png", ofType: nil, inDirectory: "YDChannelSelector.bundle")
-        let image = UIImage(contentsOfFile: path!)
-        db.setImage(image, for: .normal)
+        db.setImage(UIImage(named: "selector_dismiss"), for: .normal)
         db.setTitleColor(UIColor.black, for: .normal)
         db.addTarget(self, action: #selector(remove), for: .touchUpInside)
         db.imageEdgeInsets = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
@@ -143,18 +144,29 @@ public class YDChannelSelector: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        var dataSource_t = [[SelectorItem]]()
+        
+        for i in 0..<(dataSource?.numberOfSections(in: self) ?? 0) {
+            var section_t = [SelectorItem]()
+            for j in 0..<(dataSource?.selector(self, numberOfItemsInSection: i) ?? 0) {
+                let item = dataSource?.selector(self, itemAt: IndexPath(item: j, section: i)) ?? SelectorItem(channelTitle: "unknown", rawData: nil)
+                section_t.append(item)
+            }
+            dataSource_t.append(section_t)
+        }
+        
         // 根据需求处理数据源
         if isCacheLastest && UserDefaults.standard.value(forKey: operatedDS) != nil { // 需要缓存之前数据 且用户操作有存储
             // 缓存原始数据源
-            if isCacheLastest { cacheDataSource(dataSource: dataSource!, isOrigin: true) }
+            if isCacheLastest { cacheDataSource(dataSource: dataSource_t, isOrigin: true) }
             var bool = false
-            let newTitlesArrs = dataSource!.map { $0.map { $0.channelTitle! } }
+            let newTitlesArrs = dataSource_t.map { $0.map { $0.channelTitle! } }
             let orginTitlesArrs = UserDefaults.standard.value(forKey: originDS) as? [[String]]
             // 之前有存过原始数据源
             if orginTitlesArrs != nil { bool = newTitlesArrs == orginTitlesArrs! }
             if bool { // 和之前数据相等 -> 返回缓存数据源
                 let cacheTitleArrs = UserDefaults.standard.value(forKey: operatedDS) as? [[String]]
-                let flatArr = dataSource!.flatMap { $0 }
+                let flatArr = dataSource_t.flatMap { $0 }
                 var cachedDataSource = cacheTitleArrs!.map { $0.map { SelectorItem(channelTitle: $0, rawData: nil) }}
                 for (i,items) in cachedDataSource.enumerated() {
                     for (j,item) in items.enumerated() {
@@ -165,16 +177,16 @@ public class YDChannelSelector: UIViewController {
                         }
                     }
                 }
-                dataSource = cachedDataSource
+                dataSource_t = cachedDataSource
             } else {  // 和之前数据不等 -> 返回新数据源(不处理)
                 
             }
         }
         
         // 预处理数据源
-        var dataSource_t = dataSource
-        dataSource_t?.insert(latelyDeleteChannels, at: 1)
-        dataSource = dataSource_t
+        var dataSource_tt = dataSource_t
+        dataSource_tt.insert(latelyDeleteChannels, at: 1)
+        _dataSource = dataSource_tt
         collectionView.reloadData()
     }
     
@@ -182,12 +194,20 @@ public class YDChannelSelector: UIViewController {
         super.viewDidDisappear(animated)
         
         // 移除界面后的一些操作
-        dataSource![2] = dataSource![1] + dataSource![2]
-        dataSource?.remove(at: 1)
+        if _dataSource?.count == 2 { // 初始只有1个section
+            _dataSource![0] = _dataSource![0] + (_dataSource?[1] ?? [])
+        } else {                     // 初始2个或更多section
+            _dataSource![2] = _dataSource![1] + (_dataSource?[2] ?? [])
+            
+        }
+        _dataSource?.remove(at: 1)
         latelyDeleteChannels.removeAll()
     }
-
     
+    deinit {
+        delegate = nil
+        dataSource = nil
+    }
 }
 
 extension YDChannelSelector {
@@ -204,7 +224,7 @@ extension YDChannelSelector {
     
     @objc private func remove() {
         // 通知代理
-        delegate?.selector(self, dismiss: dataSource!)
+        delegate?.selector(self, dismiss: _dataSource!)
         // 移除控制器
         dismiss(animated: true, completion: nil)
     }
@@ -225,7 +245,7 @@ extension YDChannelSelector {
     }
     
     private func handleDataSource(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
-        let sourceStr = dataSource![sourceIndexPath.section][sourceIndexPath.row]
+        let sourceStr = _dataSource![sourceIndexPath.section][sourceIndexPath.row]
         if sourceIndexPath.section == 0 && destinationIndexPath.section == 1 { // 我的栏目 -> 最近删除
             latelyDeleteChannels.append(sourceStr)
         }
@@ -234,13 +254,13 @@ extension YDChannelSelector {
             latelyDeleteChannels.remove(at: sourceIndexPath.row)
         }
         
-        dataSource![sourceIndexPath.section].remove(at: sourceIndexPath.row)
-        dataSource![destinationIndexPath.section].insert(sourceStr, at: destinationIndexPath.row)
+        _dataSource![sourceIndexPath.section].remove(at: sourceIndexPath.row)
+        _dataSource![destinationIndexPath.section].insert(sourceStr, at: destinationIndexPath.row)
         
         // 通知代理
-        delegate?.selector(self, didChangeDS: dataSource!)
+        delegate?.selector(self, didChangeDS: _dataSource!)
         // 存储用户操作
-        cacheDataSource(dataSource: dataSource!)
+        cacheDataSource(dataSource: _dataSource!)
     }
     
     private func cacheDataSource(dataSource: [[SelectorItem]], isOrigin: Bool = false) {
@@ -264,18 +284,19 @@ extension YDChannelSelector {
 extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource?.count ?? 0
+        return _dataSource?.count ?? 0
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource![section].count
+        return _dataSource![section].count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: YDChannelSelectorCellID, for: indexPath) as! YDChannelSelectorCell
-    
-        let item = dataSource![indexPath.section][indexPath.row]
+        
+        let item = _dataSource![indexPath.section][indexPath.row]
+        
         // 设置固定栏目
         cell.isFixation = item.isFixation
         // 设置选中
@@ -340,15 +361,6 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
     
-    public func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        let item = dataSource![indexPath.section][indexPath.row]
-        if indexPath.section > 0 || item.isFixation { // 不是我的栏目 或者是固定栏目
-            return false
-        } else {
-            return true
-        }
-    }
-    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! YDChannelSelectorCell
         if indexPath.section == 0 && isEdit && !cell.isFixation { // 我的栏目 非固定栏目 编辑状态下 -> 最近删除
@@ -358,7 +370,7 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
             let destinationCell = collectionView.cellForItem(at: destinationIndexPath) as! YDChannelSelectorCell
             destinationCell.cellType = .add
         } else if indexPath.section == 0 && !isEdit {        // 我的栏目 非编辑状态下 -> 事件传递
-            let channelItem = dataSource![indexPath.section][indexPath.row]
+            let channelItem = _dataSource![indexPath.section][indexPath.row]
             // 通知代理
             delegate?.selector(self, didSelectChannel: channelItem)
             // dismiss
@@ -366,7 +378,7 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
             // 当前选中切换
             currentSelected = channelItem
         } else if indexPath.section != 0 {                   // 更多栏目 -> 我的栏目
-            let destinationIndexPath = IndexPath(item: dataSource![0].count, section: 0)
+            let destinationIndexPath = IndexPath(item: _dataSource![0].count, section: 0)
             handleDataSource(sourceIndexPath: indexPath, destinationIndexPath: destinationIndexPath)
             collectionView.moveItem(at: indexPath, to: destinationIndexPath)
             let destinationCell = collectionView.cellForItem(at: destinationIndexPath) as! YDChannelSelectorCell
@@ -375,19 +387,27 @@ extension YDChannelSelector: UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
     
+    public func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        let item = _dataSource![indexPath.section][indexPath.row]
+        if indexPath.section > 0 || item.isFixation { // 不是我的栏目 或者是固定栏目
+            return false
+        } else {
+            return true
+        }
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        // 操纵数据源保证DataSource不会出错
         handleDataSource(sourceIndexPath: sourceIndexPath, destinationIndexPath: destinationIndexPath)
     }
     
     /// 这个方法里面控制需要移动和最后移动到的IndexPath(开始移动时)
     /// - Returns: 当前期望移动到的位置
     public func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        let item = dataSource![proposedIndexPath.section][proposedIndexPath.row]
+        let item = _dataSource![proposedIndexPath.section][proposedIndexPath.row]
         if proposedIndexPath.section > 0 || item.isFixation { // 不是我的栏目 或者是固定栏目
-            return originalIndexPath
+            return originalIndexPath // 操作还原
         } else {
-            return proposedIndexPath
+            return proposedIndexPath // 操作完成
         }
     }
     
@@ -436,9 +456,4 @@ fileprivate class HitTestView: UIView {
         return super.hitTest(point, with: event)
     }
 }
-
-
-
-
-
 
