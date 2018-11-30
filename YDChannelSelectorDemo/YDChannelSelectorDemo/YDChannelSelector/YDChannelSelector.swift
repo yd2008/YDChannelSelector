@@ -52,6 +52,16 @@ public class YDChannelSelector: UIViewController {
     
     /// 当前选中频道
     public var currentSelected: SelectorItem!
+    
+    /// 弹出界面
+    public func show() {
+        getCurrentVC()?.present(self, animated: true, completion: nil)
+    }
+    
+    /// 隐藏界面
+    public func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
 
     // MARK: - 私有属性方法 -
     
@@ -457,3 +467,27 @@ fileprivate class HitTestView: UIView {
     }
 }
 
+private func getCurrentVC() -> UIViewController? {
+    guard let window = UIApplication.shared.windows.first else { return nil }
+    var tempView: UIView?
+    for subview in window.subviews {
+        if subview.classForCoder.description() == "UILayoutContainerView" {
+            tempView = subview
+            break
+        }
+    }
+    
+    if tempView == nil {
+        tempView = window.subviews.last
+    }
+    
+    var nextResponder = tempView?.next
+    while (!(nextResponder?.isKind(of: UIViewController.self))!) || (nextResponder?.isKind(of: UINavigationController.self))! || (nextResponder?.isKind(of: UITabBarController.self))! {
+        tempView = tempView?.subviews.first
+        if tempView == nil {
+            return nil
+        }
+        nextResponder = tempView?.next
+    }
+    return nextResponder as? UIViewController
+}

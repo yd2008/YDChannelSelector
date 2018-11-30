@@ -41,7 +41,8 @@ class ViewController: UIViewController {
 //            print("DataSources can not be empty!")
 //            return
 //        }
-        present(channelSelector, animated: true, completion: nil)
+//        present(channelSelector, animated: true, completion: nil)
+        channelSelector.show()
     }
     
 }
@@ -62,8 +63,8 @@ extension ViewController: YDChannelSelectorDataSource {
         // 默认头条为固定栏目
         let selectorItem = SelectorItem(channelTitle: title, isFixation: title == "头条", rawData: nil)
         return selectorItem
- 
     }
+    
 }
 
 // MARK: 代理方法
