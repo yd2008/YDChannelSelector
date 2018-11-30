@@ -8,21 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSelectorDelegate {
+class ViewController: UIViewController {
     
-    // 数据源
-    var selectorDataSource: [[SelectorItem]]? {
-        didSet {
-            channelSelector.dataSource = selectorDataSource
-        }
-    }
-    
+    let mockDataSource = [["头条","体育","数码","佛学","科技","娱乐","成都","二次元"],["独家","NBA","历史","军事","彩票","新闻学院","态度公开课","云课堂"]]
+   
     private lazy var channelSelector: YDChannelSelector = {
-        let sv = YDChannelSelector()
-        sv.delegate = self
-        // 是否支持本地缓存用户功能
-        // sv.isCacheLastest = false
-        return sv
+        let cv = YDChannelSelector()
+        cv.dataSource = self
+        cv.delegate = self
+        // 是否支持本地缓存用户功能 默认支持
+//        cv.isCacheLastest = false
+        return cv
     }()
     
     private lazy var showBtn: UIButton = {
@@ -38,38 +34,40 @@ class ViewController: UIViewController, YDChannelSelectorDataSource, YDChannelSe
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(showBtn)
-        
-        // 数据源赋值 通过网络或者本地获取
-        let mockData = [["头条","体育","数码","佛学","科技","娱乐","成都","二次元"],["独家","NBA","历史","军事","彩票","新闻学院","态度公开课","云课堂"]]
-        
-        var selectorDataSource_t = [[SelectorItem]]()
-        
-        for (i,channelArr) in mockData.enumerated() {
-            selectorDataSource_t.append([SelectorItem]())
-            for channelTitle in channelArr {
-                // 头条为固定栏目
-                let model = SelectorItem(channelTitle: channelTitle, isFixation: channelTitle == "头条", rawData: nil)
-                // 添加进对应组
-                selectorDataSource_t[i].append(model)
-            }
-        }
-        
-        selectorDataSource = selectorDataSource_t
-        
     }
     
     @objc private func presentSelector() {
-        guard selectorDataSource != nil && selectorDataSource?.count != 0 else {
-            print("DataSources can not be empty!")
-            return
-        }
+//        guard selectorDataSource != nil && selectorDataSource?.count != 0 else {
+//            print("DataSources can not be empty!")
+//            return
+//        }
         present(channelSelector, animated: true, completion: nil)
     }
     
 }
 
+// MARK: 数据源方法
+extension ViewController: YDChannelSelectorDataSource {
+    
+    func numberOfSections(in selector: YDChannelSelector) -> Int {
+        return mockDataSource.count
+    }
+    
+    func selector(_ selector: YDChannelSelector, numberOfItemsInSection section: Int) -> Int {
+        return mockDataSource[section].count
+    }
+    
+    func selector(_ selector: YDChannelSelector, itemAt indexPath: IndexPath) -> SelectorItem {
+        let title = mockDataSource[indexPath.section][indexPath.row]
+        // 默认头条为固定栏目
+        let selectorItem = SelectorItem(channelTitle: title, isFixation: title == "头条", rawData: nil)
+        return selectorItem
+ 
+    }
+}
+
 // MARK: 代理方法
-extension ViewController {
+extension ViewController: YDChannelSelectorDelegate {
     
     func selector(_ selector: YDChannelSelector, didChangeDS newDataSource: [[SelectorItem]]) {
         print(newDataSource.map { $0.map { $0.channelTitle! } })
