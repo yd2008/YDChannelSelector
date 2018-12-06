@@ -4,16 +4,15 @@
 [![License](https://img.shields.io/cocoapods/l/YDChannelSelector.svg?style=flat)](https://cocoapods.org/pods/YDChannelSelector)
 [![Platform](https://img.shields.io/cocoapods/p/YDChannelSelector.svg?style=flat)](https://cocoapods.org/pods/YDChannelSelector)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
 - iOS 10.0
 - Swift 4.x
 - Xcode 10
 
+
 ## 记录了初版实现思路的文章 [掘金](https://juejin.im/post/5bfb91dee51d4548657d0265)
+
 
 ## Installation
 
@@ -28,6 +27,7 @@ pod 'YDChannelSelector'
 ###### 非cocoapods
 直接拖YDChannelSelector进入项目
 
+
 ## Features
 - [x] 支持本地缓存用户操作
 - [x] 界面逻辑基本1:1 还原网易新闻 扩展性强 自定义性强
@@ -40,6 +40,7 @@ pod 'YDChannelSelector'
         <img src="https://github.com/yd2008/YDChannelSelector/blob/master/Assets/Screen_Shot1.png" width = "30%" div/>
         <img src="https://github.com/yd2008/YDChannelSelector/blob/master/Assets/Screen_Shot2.png" width = "30%" div/>
     </div>
+
 
 # Usage
 

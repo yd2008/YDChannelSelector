@@ -463,6 +463,7 @@ fileprivate class HitTestView: UIView {
             let cell = collectionView.cellForItem(at: indexPath) as! YDChannelSelectorCell
             cell.touchAnimate()
         }
+        
         return super.hitTest(point, with: event)
     }
 }
