@@ -201,17 +201,17 @@ public class YDChannelSelector: UIViewController {
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
+        super.viewDidDisappear(animated)
         // 移除界面后的一些操作
         if _dataSource?.count == 2 { // 初始只有1个section
             _dataSource![0] = _dataSource![0] + (_dataSource?[1] ?? [])
         } else {                     // 初始2个或更多section
             _dataSource![2] = _dataSource![1] + (_dataSource?[2] ?? [])
-            
         }
         _dataSource?.remove(at: 1)
         latelyDeleteChannels.removeAll()
+        
     }
 
     deinit {
